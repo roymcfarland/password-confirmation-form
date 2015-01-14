@@ -1,20 +1,35 @@
-////////////////////////////////////////////////
-/////////////  GLOBAL VARIABLES  ///////////////
-////////////////////////////////////////////////
-
 // Hide Tooltips
 $('form span').hide();
+
+////////////////////////////////////////////////
+/////////////////  VARIABLES  //////////////////
+////////////////////////////////////////////////
+
+var $password = $('#password');
+var $confirmPassword = $('#confirm_password');
 
 // PasswordEvent
 var passwordEvent = function() {
 	// Find out if password is valid
-	if($(this).val().length > 8) {
+	if($password.val().length > 8) {
 		// Hide hint if valid
-		$(this).next().hide();
+		$password.next().hide();
 	} else {
 		// Else show hint
-		$(this).next().show();
+		$password.next().show();
 	}
+};
+
+var confirmPasswordEvent = function() {
+	// Find out if password and confirmation match
+	if($password.val() === $confirmPassword.val()) {
+		// Hide hint if matched
+		$confirmPassword.next().hide();
+	} else {
+		// Else show hint
+		$confirmPassword.next().show();
+	}
+
 };
 
 ////////////////////////////////////////////////
@@ -22,10 +37,7 @@ var passwordEvent = function() {
 ////////////////////////////////////////////////
 
 // When event happens on password input
-$('#password').on('focus', passwordEvent).on('keyup', passwordEvent);
-
+$password.on('focus', passwordEvent).on('keyup', passwordEvent).on('focus', confirmPasswordEvent).on('keyup', confirmPasswordEvent);
 
 // When event happens on confirmation input
-	// Find out if password and confirmation match
-		// Hide hint if matched
-		// Else show hint
+$confirmPassword.on('focus', confirmPasswordEvent).on('keyup', confirmPasswordEvent);
